@@ -19,4 +19,18 @@ mod tests {
             }
         }
     }
+
+    #[test]
+    fn keccak256() {
+        let result = utility::keccak256("test");
+        match result {
+            Ok(_r) => {
+                assert_eq!("9c22ff5f21f0b81b113e63f7db6da94fedef11b2119b4088b89664fb9a3cb658", &_r);
+            },
+            Err(e) => {
+                 panic!(e)   
+            }
+        }
+
+    }
 }

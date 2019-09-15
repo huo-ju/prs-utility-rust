@@ -41,3 +41,9 @@ pub fn recover_user_pubaddress(sig:&str, hash:&str) -> Result<String,String> {
 
     }
 }
+
+pub fn keccak256(content:&str) -> Result<String,String> {
+    let mut hasher = Sha3::keccak256();
+    hasher.input_str(&content);
+    Ok(hasher.result_str().to_string())
+}
