@@ -31,4 +31,30 @@ mod tests {
             Err(e) => panic!(e),
         }
     }
+
+    #[test]
+    fn sha256() {
+        let result = utility::sha256("test");
+        match result {
+            Ok(_r) => {
+                assert_eq!(
+                    "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08",
+                    &_r
+                );
+            }
+            Err(e) => panic!(e),
+        }
+    }
+
+    #[test]
+    fn hash_text() {
+        assert_eq!(
+            utility::hash_text("test", "keccak256"),
+            utility::keccak256("test")
+        );
+        assert_eq!(
+            utility::hash_text("test", "sha256"),
+            utility::sha256("test")
+        );
+    }
 }

@@ -3,6 +3,7 @@ extern crate hex;
 extern crate secp256k1;
 
 use self::crypto::digest::Digest;
+use self::crypto::sha2;
 use self::crypto::sha3::Sha3;
 use secp256k1::{Message, Secp256k1};
 use std::iter::repeat;
@@ -45,4 +46,21 @@ pub fn keccak256(content: &str) -> Result<String, String> {
     let mut hasher = Sha3::keccak256();
     hasher.input_str(&content);
     Ok(hasher.result_str().to_string())
+}
+
+pub fn sha256(content: &str) -> Result<String, String> {
+    let mut hasher = sha2::Sha256::new();
+    hasher.input_str(&content);
+    Ok(hasher.result_str().to_string())
+}
+
+pub fn hash_text(content: &str, alg: &str) -> Result<String, String> {
+    let _hash: String;
+    if alg == "keccak256" {
+        return keccak256(content);
+    } else if alg == "sha256" {
+        return sha256(content);
+    } else {
+        return Err(format!("unsupport alg param, alg = {}", alg));
+    }
 }
